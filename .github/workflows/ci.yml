@@ -29,10 +29,7 @@ jobs:
         uses: actions/checkout@v4
       - name: Build image
         run: docker build -t devsecops-lab:latest .
+      - name: Install Trivy
+        run: curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sudo sh -s -- -b /usr/local/bin
       - name: Scan image with Trivy
-        uses: aquasecurity/trivy-action@master
-        with:
-          image-ref: devsecops-lab:latest
-          severity: CRITICAL
-          ignore-unfixed: true
-          exit-code: '1'
+        run: trivy image --ignore-unfixed --severity CRITICAL --exit-code 1 devsecops-lab:latest
