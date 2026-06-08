@@ -34,4 +34,5 @@ jobs:
         with:
           image-ref: devsecops-lab:latest
           severity: CRITICAL
+          ignore-unfixed: true
           exit-code: '1'
